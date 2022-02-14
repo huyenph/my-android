@@ -10,6 +10,6 @@ Production (flavor-prod)
 
 ## Table of Contents
 
-- Initialize project
+- [Initialize project](#initialize-project)
 - Configuration
 - Implement package and libraries
