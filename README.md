@@ -1,5 +1,5 @@
 # My Android
-## _New updates for Android
+## New updates for Android
 
 [![N|Solid](https://cldup.com/dTxpPi9lDf.thumb.png)](https://nodesource.com/products/nsolid)
 
