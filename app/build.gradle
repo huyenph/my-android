@@ -10,6 +10,22 @@ android {
     compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
+    signingConfigs {
+        productionConfig {
+//            keyAlias ''
+//            keyPassword ''
+//            storeFile file('')
+//            storePassword ''
+        }
+
+        stagingConfig {
+//            keyAlias ''
+//            keyPassword ''
+//            storeFile file('')
+//            storePassword ''
+        }
+    }
+
     defaultConfig {
         applicationId "com.dev.myandroid"
         minSdkVersion 21
@@ -17,37 +33,91 @@ android {
         versionCode 1
         versionName "1.0"
 
+        buildConfigField("Boolean", "NEED_SSL", "false")
+
         testInstrumentationRunner 'androidx.test.runner.AndroidJUnitRunner'
     }
 
     buildTypes {
         release {
             minifyEnabled true
+            debuggable false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         debug {
-            applicationIdSuffix ".debug"
             debuggable true
         }
     }
 
     flavorDimensions "version"
     productFlavors {
-        develop {
+        def PRODUCTION_APP_ID = "com.dev.myandroid"
+        def PRODUCTION_BASE_API_URL = "\"https://api.stackexchange.com/2.2/\""
+        def PRODUCTION_BASE_WEB_URL = "\"https://www.ionorchard.com/\""
+        def PRODUCTION_APP_NAME = "My Android"
+        def PRODUCTION_FACEBOOK_APP_ID = ""
+        def PRODUCTION_FACEBOOK_LOGIN_PROTOCOL_SCHEME = ""
+        def PRODUCTION_NEED_ROOT_DETECTION = "false"
+        def PRODUCTION_NEED_DYNAMIC_ENDPOINT = "false"
+
+        def STAGING_APP_ID = "com.dev.myandroid.staging"
+        def STAGING_BASE_API_URL = "\"https://api.stackexchange.com/2.2/\""
+        def STAGING_BASE_WEB_URL = "\"https://www.ionorchard.com/\""
+        def STAGING_APP_NAME = "My Android Staging"
+        def STAGING_FACEBOOK_APP_ID = ""
+        def STAGING_FACEBOOK_LOGIN_PROTOCOL_SCHEME = ""
+        def STAGING_NEED_ROOT_DETECTION = "false"
+        def STAGING_NEED_DYNAMIC_ENDPOINT = "false"
+
+        def DEVELOP_APP_ID = "com.dev.myandroid.develop"
+        def DEVELOP_BASE_API_URL = "\"https://api.stackexchange.com/2.2/\""
+        def DEVELOP_BASE_WEB_URL = "\"https://www.ionorchard.com/\""
+        def DEVELOP_APP_NAME = "My Android Development"
+        def DEVELOP_FACEBOOK_APP_ID = ""
+        def DEVELOP_FACEBOOK_LOGIN_PROTOCOL_SCHEME = ""
+        def DEVELOP_NEED_ROOT_DETECTION = "false"
+        def DEVELOP_NEED_DYNAMIC_ENDPOINT = "false"
+
+        production {
             dimension "version"
-            applicationIdSuffix ".develop"
-            versionNameSuffix "-develop"
-            buildConfigField "String", "API_URL", "\"https://api.stackexchange.com/2.2/\""
+            signingConfig signingConfigs.productionConfig
+            applicationId PRODUCTION_APP_ID
+            buildConfigField("String", "BASE_API_URL", PRODUCTION_BASE_API_URL)
+            buildConfigField("String", "BASE_WEB_URL", PRODUCTION_BASE_WEB_URL)
+            buildConfigField("Boolean", "NEED_ROOT_DETECTION", PRODUCTION_NEED_ROOT_DETECTION)
+            buildConfigField("Boolean", "NEED_DYNAMIC_ENDPOINT", PRODUCTION_NEED_DYNAMIC_ENDPOINT)
+            buildConfigField("Boolean", "NEED_SSL", "true")
+
+            resValue "string", "flavor_app_name", PRODUCTION_APP_NAME
+            resValue "string", "flavor_facebook_app_id", PRODUCTION_FACEBOOK_APP_ID
+            resValue "string", "flavor_facebook_login_protocol_scheme", PRODUCTION_FACEBOOK_LOGIN_PROTOCOL_SCHEME
         }
         staging {
             dimension "version"
-            applicationIdSuffix ".staging"
-            versionNameSuffix "-staging"
-            buildConfigField "String", "API_URL", "\"https://api.stackexchange.com/2.2/\""
+            signingConfig signingConfigs.stagingConfig
+            applicationId STAGING_APP_ID
+            buildConfigField("String", "BASE_API_URL", STAGING_BASE_API_URL)
+            buildConfigField("String", "BASE_WEB_URL", STAGING_BASE_WEB_URL)
+            buildConfigField("Boolean", "NEED_ROOT_DETECTION", STAGING_NEED_ROOT_DETECTION)
+            buildConfigField("Boolean", "NEED_DYNAMIC_ENDPOINT", STAGING_NEED_DYNAMIC_ENDPOINT)
+            buildConfigField("Boolean", "NEED_SSL", "false")
+
+            resValue "string", "flavor_app_name", STAGING_APP_NAME
+            resValue "string", "flavor_facebook_app_id", STAGING_FACEBOOK_APP_ID
+            resValue "string", "flavor_facebook_login_protocol_scheme", STAGING_FACEBOOK_LOGIN_PROTOCOL_SCHEME
         }
-        production {
+        develop {
             dimension "version"
-            buildConfigField "String", "API_URL", "\"https://api.stackexchange.com/2.2/\""
+            applicationId DEVELOP_APP_ID
+            buildConfigField("String", "BASE_API_URL", DEVELOP_BASE_API_URL)
+            buildConfigField("String", "BASE_WEB_URL", DEVELOP_BASE_WEB_URL)
+            buildConfigField("Boolean", "NEED_ROOT_DETECTION", DEVELOP_NEED_ROOT_DETECTION)
+            buildConfigField("Boolean", "NEED_DYNAMIC_ENDPOINT", DEVELOP_NEED_DYNAMIC_ENDPOINT)
+            buildConfigField("Boolean", "NEED_SSL", "false")
+
+            resValue "string", "flavor_app_name", DEVELOP_APP_NAME
+            resValue "string", "flavor_facebook_app_id", DEVELOP_FACEBOOK_APP_ID
+            resValue "string", "flavor_facebook_login_protocol_scheme", DEVELOP_FACEBOOK_LOGIN_PROTOCOL_SCHEME
         }
     }
 
@@ -78,7 +148,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 
-    def lifecycle_version = "2.5.0-alpha05"
+    def lifecycle_version = "2.5.0-alpha06"
     def arch_version = "2.1.0"
 
     // ViewModel
@@ -108,7 +178,7 @@ dependencies {
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$arch_version"
 
-    def nav_version = "2.4.1"
+    def nav_version = "2.4.2"
 
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
