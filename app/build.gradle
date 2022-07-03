@@ -7,7 +7,7 @@ plugins {
 }
 
 android {
-    compileSdkVersion 31
+    compileSdkVersion 33
     buildToolsVersion "30.0.3"
 
     signingConfigs {
@@ -29,7 +29,7 @@ android {
     defaultConfig {
         applicationId "com.dev.myandroid"
         minSdkVersion 21
-        targetSdkVersion 31
+        targetSdkVersion 33
         versionCode 1
         versionName "1.0"
 
@@ -148,7 +148,7 @@ dependencies {
     implementation "com.google.dagger:hilt-android:2.38.1"
     kapt "com.google.dagger:hilt-compiler:2.38.1"
 
-    def lifecycle_version = "2.5.0-alpha06"
+    def lifecycle_version = "2.6.0-alpha01"
     def arch_version = "2.1.0"
 
     // ViewModel
@@ -178,7 +178,7 @@ dependencies {
     // optional - Test helpers for LiveData
     testImplementation "androidx.arch.core:core-testing:$arch_version"
 
-    def nav_version = "2.4.2"
+    def nav_version = "2.5.0"
 
     // Kotlin
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
@@ -210,9 +210,9 @@ dependencies {
     implementation "androidx.paging:paging-guava:$paging_version"
 
     // optional - Jetpack Compose integration
-    implementation "androidx.paging:paging-compose:1.0.0-alpha14"
+    implementation "androidx.paging:paging-compose:1.0.0-alpha15"
 
-    def roomVersion = "2.4.2"
+    def roomVersion = "2.5.0-alpha02"
 
     implementation "androidx.room:room-runtime:$roomVersion"
     annotationProcessor "androidx.room:room-compiler:$roomVersion"
@@ -236,7 +236,7 @@ dependencies {
     testImplementation "androidx.room:room-testing:$roomVersion"
 
     // optional - Paging 3 Integration
-    implementation "androidx.room:room-paging:2.5.0-alpha01"
+    implementation "androidx.room:room-paging:2.5.0-alpha02"
 
     def work_version = "2.7.1"
 
@@ -256,7 +256,7 @@ dependencies {
     implementation "androidx.work:work-multiprocess:$work_version"
 
     // coroutines
-    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.1"
 
     def okhttp = "4.9.3"
     implementation "com.squareup.okhttp3:okhttp:$okhttp"
